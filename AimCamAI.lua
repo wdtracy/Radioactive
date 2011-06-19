@@ -211,19 +211,19 @@ function AimCamAI.onMouseButtonDown ( nButton, nPointX, nPointY, nRayPntX, nRayP
 --------------------------------------------------------------------------------
     
     local dt = application.getAverageFrameTime ( )
-    log.message ( dt )
     
     -- Only register clicks when the ball is not in play
 	if( not this.ballInPlay ( ) ) then
         -- Boolean flag to see if a movable object has been clicked
         local bMovable = false
-        local hHitObject
+        local hHitObject, nHitDist, nHitSurfaceID, x,y,z
         
         -- Only do these checks in edit mode
         if( this.editing (  ) ) then
             local hScene = application.getCurrentUserScene ( )
-            hHitObject = scene.getFirstHitCollider ( hScene, nRayPntX, nRayPntY, nRayPntZ,
-                                                     nRayDirX, nRayDirY, nRayDirZ, this.nRayLength ( ) )
+            hHitObject, nHitDist, nHitSurfaceID, x, y, z = 
+                scene.getFirstHitColliderEx ( hScene, nRayPntX, nRayPntY, nRayPntZ,
+                                              nRayDirX, nRayDirY, nRayDirZ, this.nRayLength ( ) )
             -- If there's a hit
             if( hHitObject ~= nil ) then
                 local sAI = object.getAIModelNameAt ( hHitObject, this.nMovableIndex ( ) )
@@ -240,6 +240,12 @@ function AimCamAI.onMouseButtonDown ( nButton, nPointX, nPointY, nRayPntX, nRayP
             
             -- We are now moving an object
             this.bMovingObject ( true )
+            
+            -- Get the position of the object and subtract the actual cursor location on the object.
+			-- This offset will be used to keep the object from making an initial jump to the cursor location.
+            local originX, originY, originZ = object.getTranslation ( this.hMovingObject ( ), object.kGlobalSpace )
+            object.setAIVariable ( this.hMovingObject ( ), "MovableAI", "nXOffset", x - originX )
+            object.setAIVariable ( this.hMovingObject ( ), "MovableAI", "nZOffset", z - originZ )
             
         -- If the object is not movable or there was no object - launch the ball
         else
@@ -268,6 +274,7 @@ function AimCamAI.onMouseButtonDown ( nButton, nPointX, nPointY, nRayPntX, nRayP
 --------------------------------------------------------------------------------
 end
 --------------------------------------------------------------------------------
+
 
 
 

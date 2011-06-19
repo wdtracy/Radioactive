@@ -38,7 +38,8 @@ function MovableAI.onMouseMove ( nPointX, nPointY, nDeltaX, nDeltaY,
     local objectX,objectY,objectZ = object.getTranslation ( this.hObject ( ), object.kGlobalSpace )
 
     -- Move the object to the x and z coords of the cursor and the y coord of the object
-    object.translateTo ( this.hObject ( ), x, objectY, z, object.kGlobalSpace, 1 )
+    object.translateTo ( this.hObject ( ), x - this.nXOffset ( ), objectY, 
+                         z - this.nZOffset ( ), object.kGlobalSpace, 1 )
 	
 --------------------------------------------------------------------------------
 end
