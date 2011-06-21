@@ -51,6 +51,7 @@ function AimCamAI.onMouseButtonDown ( nButton, nPointX, nPointY, nRayPntX, nRayP
             -- Set the play flag and enable the dynamics so the ball can move
             this.ballInPlay ( true )
             dynamics.enableDynamics ( this.hBall ( ), true )
+            sfx.startAllTrails ( application.getCurrentUserSceneTaggedObject ( "BallHelper" ) )
             
             -- Match the chase cam and ball to the aim cam rotation so they go in
             -- the aimed direction.
