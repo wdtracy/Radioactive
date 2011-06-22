@@ -20,6 +20,10 @@ function AimCamAI.onToggleCamera (  )
             this.setCrosshairVisibility ( true )
         end
         
+        -- Show the ceiling if not in overhead mode
+        local hCeiling = application.getCurrentUserSceneTaggedObject ( "Ceiling" )
+        object.setVisible ( hCeiling, true )
+        
         this.centerMouse ( )
         this.setCursorVisibility ( false )
         this.bOverhead ( false )
@@ -27,6 +31,10 @@ function AimCamAI.onToggleCamera (  )
     else
         -- Store the overhead cam
         hCurrentCam = application.getCurrentUserSceneTaggedObject ( "OverheadCam" )
+        
+        -- Hide the ceiling in overhead mode
+        local hCeiling = application.getCurrentUserSceneTaggedObject ( "Ceiling" )
+        object.setVisible ( hCeiling, false )
         
         this.setCrosshairVisibility ( false )
         this.bOverhead ( true )
