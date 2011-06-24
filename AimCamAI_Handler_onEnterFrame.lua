@@ -16,7 +16,16 @@ function AimCamAI.onEnterFrame (  )
         -- Reset dynamics since they were adjusted as the ball slowed
         dynamics.setLinearDamping ( this.hBall ( ), this.nDefLinearDamping ( ) )
         dynamics.enableDynamics ( this.hBall ( ), false )
-        sfx.pauseAllTrails ( application.getCurrentUserSceneTaggedObject ( "BallHelper" ) )
+        
+        -- Reset the special effects on the ball
+        local hBallHelper = application.getCurrentUserSceneTaggedObject ( "BallHelper" )
+        sfx.pauseAllTrails ( hBallHelper )
+        sfx.pauseAllParticleEmitters ( hBallHelper )
+        
+        -- Reset the fire
+        local hFireHelper = application.getCurrentUserSceneTaggedObject ( "FireHelper" )
+        sfx.startAllParticleEmitters ( hFireHelper )
+        sensor.setAllActive ( hFireHelper, true )
         
         -- Move the Chase cam and the ball back to the begining
         object.translateTo ( this.hBall ( ), this.nStartX ( ), this.nStartY ( ),
