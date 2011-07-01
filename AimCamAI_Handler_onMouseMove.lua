@@ -18,8 +18,10 @@ function AimCamAI.onMouseMove ( nPointX, nPointY, nDeltaX, nDeltaY,
         -- Change to aiming
         if( this.aiming ( ) ) then
             -- Use localspace for the X axis rotation
-            object.rotate ( this.hAimCam (), nDeltaY * 60, 0, 0, object.kLocalSpace )
-            object.rotate ( this.hAimCam ( ), 0, -nDeltaX * 60, 0, object.kGlobalSpace )
+            object.rotate ( this.hAimCam (), nDeltaY * this.nRotationSensitivity ( ),
+                            0, 0, object.kLocalSpace )
+            object.rotate ( this.hAimCam ( ), 0, -nDeltaX * this.nRotationSensitivity ( ),
+                            0, object.kGlobalSpace )
         end
         
         -- Only center the mouse if not in edit mode

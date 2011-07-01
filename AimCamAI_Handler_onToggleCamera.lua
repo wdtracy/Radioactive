@@ -16,8 +16,11 @@ function AimCamAI.onToggleCamera (  )
         if( this.ballInPlay ( ) ) then
             hCurrentCam = application.getCurrentUserSceneTaggedObject ( "ChaseCam" )
         else
+            -- Ball is not in play so show the crosshairs and move the ceiling back
             hCurrentCam = application.getCurrentUserSceneTaggedObject ( "AimCam" )
             this.setCrosshairVisibility ( true )
+            object.setTranslation ( this.hCeiling ( ), 0, this.nCeilingAdjustment ( ),
+                                    0, object.kLocalSpace )
         end
         
         -- Show the ceiling if not in overhead mode
@@ -39,8 +42,11 @@ function AimCamAI.onToggleCamera (  )
         this.setCrosshairVisibility ( false )
         this.bOverhead ( true )
         
+        -- We are in editing mode so show cursor and get the ceiling out of the way
         if( this.editing ( ) ) then
             this.setCursorVisibility ( true )
+            object.setTranslation ( this.hCeiling ( ), 0, -this.nCeilingAdjustment ( ),
+                                    0, object.kLocalSpace )
         end
     end
     

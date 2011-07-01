@@ -8,19 +8,19 @@
 --------------------------------------------------------------------------------
 function ChaseCamAI.onEnterFrame (  )
 --------------------------------------------------------------------------------
-
-    -- By getting the average time frame, we can make sure that time dependent functions
-    -- scale to the different frame rates on devices.
-    local dt = application.getAverageFrameTime ( )
-
-    -- Get the target location, velocity, and speed
-    local targetX, targetY, targetZ = object.getTranslation ( this.hTarget ( ), object.kGlobalSpace )
-    local vX, vY, vZ = dynamics.getLinearVelocity ( this.hTarget ( ), object.kGlobalSpace )
-    local speed = math.vectorLength ( vX, vY, vZ )
     
     -- Code for the ChaseCam when the ball is in motion
 	if( not dynamics.isIdle ( this.hTarget ( ) ) ) then
     
+        -- By getting the average time frame, we can make sure that time dependent functions
+        -- scale to the different frame rates on devices.
+        local dt = application.getAverageFrameTime ( )
+
+        -- Get the target location, velocity, and speed
+        local targetX, targetY, targetZ = object.getTranslation ( this.hTarget ( ), object.kGlobalSpace )
+        local vX, vY, vZ = dynamics.getLinearVelocity ( this.hTarget ( ), object.kGlobalSpace )
+        local speed = object.getAIVariable ( this.hTarget ( ), "BallAI", "nSpeed" )
+        
         -- Normalize the vector to get just direction and scale by the chase distance
         vX, vY, vZ = math.vectorNormalize ( vX, vY, vZ )
         vX, vY, vZ = math.vectorScale ( vX, vY, vZ, this.nChaseDistance ( ) )
@@ -35,11 +35,6 @@ function ChaseCamAI.onEnterFrame (  )
             -- Move the camera to the new location and look at the ball.
             object.translateTo ( this.hChaseCam ( ), x, this.nChaseCamElevation ( ), z, 
                                  object.kGlobalSpace, this.nFollowFactor ( ) * dt )
-        else
-        
-            -- If we are slowing down, add damping to break the motion and end the turn
-            dynamics.setLinearDamping ( this.hTarget ( ), this.nBraking ( ) )
-            
         end
         
         -- After positioning the camera, its time to make sure we are looking at the ball.
