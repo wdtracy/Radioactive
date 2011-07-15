@@ -21,6 +21,14 @@ function MovableAI.onMouseMove ( nPointX, nPointY, nDeltaX, nDeltaY,
     -- Move the object to the x and z coords of the cursor and the y coord of the object
     object.translateTo ( this.hObject ( ), x - this.nXOffset ( ), objectY, 
                          z - this.nZOffset ( ), object.kGlobalSpace, 1 )
+                         
+    -- Added - Move the selector with the object.
+    local hUser = application.getCurrentUser ( )
+    local hSelector = hud.getComponent ( hUser, "hud.Selector" )
+    local hAimCam = application.getCurrentUserSceneTaggedObject ( "AimCam" )
+    if(hud.isComponentVisible ( hSelector )) then
+        object.sendEvent ( hAimCam, "AimCamAI", "onMoveSelector", this.hObject ( ) )
+    end
 	
 --------------------------------------------------------------------------------
 end

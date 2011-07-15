@@ -13,6 +13,7 @@ function AimCamAI.onInit (  )
     this.hAimCam ( this.getObject ( ) )
     this.hChaseCam ( application.getCurrentUserSceneTaggedObject ( "ChaseCam" ) )
     this.hCeiling ( application.getCurrentUserSceneTaggedObject ( "Ceiling" ) )
+    this.hOverhead ( application.getCurrentUserSceneTaggedObject ( "OverheadCam" ) )
     
 --------------------------------------------------------------------------------
 end
