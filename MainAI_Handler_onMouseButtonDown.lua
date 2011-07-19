@@ -10,9 +10,6 @@ function MainAI.onMouseButtonDown ( nButton, nPointX, nPointY, nRayPntX, nRayPnt
     
     local hScene = application.getCurrentUserScene ( )
 	object.sendEvent ( this.hAimCam ( ), "AimCamAI", "onMouseButtonDown", nButton, nPointX, nPointY, nRayPntX, nRayPntY, nRayPntZ, nRayDirX, nRayDirY, nRayDirZ )
-    log.message ( "dyn: " .. scene.getDynamicsTimeStep ( hScene ) )
-    log.message ( "per step: " .. scene.getDynamicsIterationsPerStep ( hScene ) )
-    log.message ( "dt: " .. application.getAverageFrameTime ( ) )
     
 --------------------------------------------------------------------------------
 end

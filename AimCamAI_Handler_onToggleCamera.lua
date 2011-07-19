@@ -10,6 +10,7 @@ function AimCamAI.onToggleCamera (  )
 --------------------------------------------------------------------------------
     
     local hCurrentCam
+    local hUser = application.getCurrentUser ( )
     
     -- If we are in overhead mode, switch to Chase or Aim cam
 	if( this.bOverhead ( ) ) then
@@ -30,6 +31,12 @@ function AimCamAI.onToggleCamera (  )
         this.centerMouse ( )
         this.setCursorVisibility ( false )
         this.bOverhead ( false )
+        
+        -- Hide the selector and de-select the object.
+        local hSelector = hud.getComponent ( hUser, "hud.Selector" )
+        hud.setComponentVisible ( hSelector, false )
+        this.hSelectedObject ( nil )
+        
     -- If in chase or aim cam, switch to Overhead
     else
         -- Store the overhead cam

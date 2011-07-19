@@ -8,7 +8,7 @@
 --------------------------------------------------------------------------------
 function AimCamAI.onEnterFrame (  )
 --------------------------------------------------------------------------------
-    
+
     -- Check for the end of the turn
 	if( this.turnEnds ( ) ) then
         this.ballInPlay ( false )

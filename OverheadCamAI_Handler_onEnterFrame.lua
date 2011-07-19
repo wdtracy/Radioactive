@@ -48,6 +48,10 @@ function OverheadCamAI.onEnterFrame (  )
             object.translateTo ( this.hOverheadCam ( ), 0, this.nScrollValue ( ), 0, 
                                  object.kLocalSpace, this.nScrollFactor ( ) * dt )
         end
+        
+        -- added
+        hAimCam = application.getCurrentUserSceneTaggedObject ( "AimCam" )
+        object.postEvent ( hAimCam, 0, "AimCamAI", "onMoveSelector" )
     end
     
 --------------------------------------------------------------------------------

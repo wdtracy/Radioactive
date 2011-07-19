@@ -1,22 +1,20 @@
 --------------------------------------------------------------------------------
---  Handler.......... : onMouseButtonUp
+--  Handler.......... : onRotateObject
 --  Author........... : Wade Tracy
---  Description...... : The mouse button up event handler.  Ends moving objects.
+--  Description...... : Code for rotating the object around the Y axis.
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
-function AimCamAI.onMouseButtonUp ( nButton, nPointX, nPointY, nRayPntX, nRayPntY, nRayPntZ, nRayDirX, nRayDirY, nRayDirZ )
+function MovableAI.onRotateObject ( nPointX, nPointY, nDeltaX, nDeltaY, 
+                                 nRayPntX, nRayPntY, nRayPntZ, nRayDirX, nRayDirY, nRayDirZ )
 --------------------------------------------------------------------------------
 	
-    -- End moving the object.
-	if( this.bMovingObject ( ) ) then
-        this.hMovingObject ( nil )
-        this.bMovingObject ( false )
-    end
-    -- End rotating object.
-    if( this.bRotatingObject ( ) ) then
-        this.bRotatingObject ( false )
-    end
+    local dt = application.getAverageFrameTime ( )
+    
+	local objectX, objectY, objectZ = object.getBoundingSphereCenter ( this.hObject ( ) )
+    
+    -- Calculate rotation vector
+    -- Rotate object
 	
 --------------------------------------------------------------------------------
 end

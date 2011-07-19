@@ -1,15 +1,15 @@
 --------------------------------------------------------------------------------
 --  Function......... : setCursorVisibility
 --  Author........... : Wade Tracy
---  Description...... : Set the visibility of the cursor based on "visibility"
+--  Description...... : Set the visibility of the cursor based on "visibile"
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
-function AimCamAI.setCursorVisibility ( visibility )
+function AimCamAI.setCursorVisibility ( visible )
 --------------------------------------------------------------------------------
 	
 	local hUser = application.getCurrentUser ( )
-    hud.setCursorVisible ( hUser, visibility )
+    hud.setCursorVisible ( hUser, visible )
 	
 --------------------------------------------------------------------------------
 end

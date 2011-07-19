@@ -20,7 +20,6 @@ function AimCamAI.checkMovingObject ( nRayPntX, nRayPntY, nRayPntZ, nRayDirX, nR
                                       nRayDirX, nRayDirY, nRayDirZ, this.nRayLength ( ) )
     -- If there's a hit
     if( hHitObject ~= nil ) then
-        log.message ( object.hasAIModel ( hHitObject, "Test" ) )
         local sAI = object.getAIModelNameAt ( hHitObject, this.nMovableIndex ( ) )
         if( sAI ~= nil ) then
             -- Get whether the object is movable
@@ -34,7 +33,10 @@ function AimCamAI.checkMovingObject ( nRayPntX, nRayPntY, nRayPntZ, nRayDirX, nR
             
         -- We are now moving an object
         this.bMovingObject ( true )
-        
+    --
+        this.hSelectedObject ( hHitObject )
+        object.sendEvent ( this.hAimCam ( ), "AimCamAI", "onMoveSelector" )
+    --    
         -- Get the position of the object and subtract the actual cursor location on the object.
         -- This offset will be used to keep the object from making an initial jump to the cursor location.
         local originX, originY, originZ = object.getTranslation ( this.hMovingObject ( ), object.kGlobalSpace )
