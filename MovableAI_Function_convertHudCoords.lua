@@ -1,16 +1,17 @@
 --------------------------------------------------------------------------------
---  State............ : GetXML
---  Author........... : Wade Tracy
---  Description...... : Attempts to load the XML settings file
+--  Function......... : convertHudCoords
+--  Author........... : 
+--  Description...... : 
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
-function MainAI.GetXML_onEnter ( )
+function MovableAI.convertHudCoords ( x, y )
 --------------------------------------------------------------------------------
 	
-    -- Currently only configured for pulling over the internet.  This should be
-    -- reconfigured for different platforms.
-	xml.receive ( this.hConfig ( ), "http://yourgraphicresource.com/subspace/config.xml" )
+	local conX = 50 + x * 50
+    local conY = 50 + y * 50
+    
+	return conX, conY
 	
 --------------------------------------------------------------------------------
 end

@@ -33,10 +33,18 @@ function AimCamAI.checkMovingObject ( nRayPntX, nRayPntY, nRayPntZ, nRayDirX, nR
             
         -- We are now moving an object
         this.bMovingObject ( true )
-    --
+        
+        -- Set the selected object, set the initial rotation of the selector to match the object,
+        -- and call onMoveSelector to update the selector position.
         this.hSelectedObject ( hHitObject )
+        
+        local hUser = application.getCurrentUser ( )
+        local hSelector = hud.getComponent ( hUser, "hud.Selector" )
+        local rX, rY, rZ = object.getRotation ( this.hSelectedObject ( ), object.kGlobalSpace )
+        hud.setComponentRotation ( hSelector, -rY )
+        
         object.sendEvent ( this.hAimCam ( ), "AimCamAI", "onMoveSelector" )
-    --    
+        
         -- Get the position of the object and subtract the actual cursor location on the object.
         -- This offset will be used to keep the object from making an initial jump to the cursor location.
         local originX, originY, originZ = object.getTranslation ( this.hMovingObject ( ), object.kGlobalSpace )

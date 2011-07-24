@@ -12,9 +12,6 @@ function MainAI.onInit (  )
     -- Load the first level
 	if( application.setCurrentUserScene ( "Level1" ) ~= nil ) then
     
-        scene.setBackgroundTextureFilteringMode ( application.getCurrentUserScene ( ),
-            scene.kFilteringModeTrilinear)
-        
         -- Set the HUD and initial settings
         local hUser = application.getCurrentUser ( )
         if( hUser ~= nil ) then

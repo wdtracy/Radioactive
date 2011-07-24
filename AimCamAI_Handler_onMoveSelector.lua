@@ -12,11 +12,10 @@ function AimCamAI.onMoveSelector ( )
     local hUser = application.getCurrentUser ( )
     local hSelector = hud.getComponent ( hUser, "hud.Selector" )
     
-    --added
     if(this.hSelectedObject ( )) then
         
         -- Get the center of the selected object
-        local x,y,z = object.getBoundingSphereCenter ( this.hSelectedObject() )
+        local x,y,z = object.getTranslation ( this.hSelectedObject(), object.kGlobalSpace )
         
         -- Find the center of the selected object on the camera view plane
         local newX,newY = camera.projectPoint ( this.hOverhead ( ), x,y,z )
@@ -25,6 +24,17 @@ function AimCamAI.onMoveSelector ( )
         -- it visible.
         newX,newY = this.convertHudCoords ( newX, newY )
         hud.setComponentPosition ( hSelector, newX, newY )
+        
+        -- new - Position selector button based on current selector rotation.
+        local hSelectorButton = hud.getComponent ( hUser, "hud.SelectorButton" )
+        local rX, rY, rZ = object.getRotation ( this.hSelectedObject ( ), object.kGlobalSpace )
+        local sX, sY = hud.getComponentPosition ( hSelector )
+        local bX = math.cos ( rY ) * this.nSelectorButtonOffset ( ) + sX
+        -- must adjust for aspect ratio to rotate in a circle.
+        local bY = math.sin ( rY ) * this.nSelectorButtonOffset ( ) * 
+                    application.getCurrentUserViewportAspectRatio ( ) + sY
+        
+        hud.setComponentPosition ( hSelectorButton, bX, bY )
         hud.setComponentVisible ( hSelector, true )
     else
         hud.setComponentVisible ( hSelector, false )

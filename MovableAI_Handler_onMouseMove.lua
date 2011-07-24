@@ -22,7 +22,6 @@ function MovableAI.onMouseMove ( nPointX, nPointY, nDeltaX, nDeltaY,
     object.translateTo ( this.hObject ( ), x - this.nXOffset ( ), objectY, 
                          z - this.nZOffset ( ), object.kGlobalSpace, 1 )
                          
-    -- Added - Changed the event and removed if
     local hUser = application.getCurrentUser ( )
     local hSelector = hud.getComponent ( hUser, "hud.Selector" )
     local hAimCam = application.getCurrentUserSceneTaggedObject ( "AimCam" )

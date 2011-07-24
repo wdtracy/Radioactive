@@ -15,6 +15,7 @@ function OverheadCamAI.onEnterFrame (  )
     local hAimCam = application.getCurrentUserSceneTaggedObject ( "AimCam" )
     local bBallInPlay = object.getAIVariable ( hAimCam, "AimCamAI", "ballInPlay" )
     local hUser = application.getCurrentUser ( )
+    local bRotatingObject = object.getAIVariable ( hAimCam, "AimCamAI", "bRotatingObject" )
     
     -- The overhead cam functions differently when the ball is not in play
     if( bBallInPlay ) then
@@ -26,7 +27,7 @@ function OverheadCamAI.onEnterFrame (  )
                              this.nScrollFactor ( ) * dt )
         
     -- Allow the camera to scroll when the cursor moves to the edge of the screen.
-    else
+    elseif(not bRotatingObject) then
         -- As the cursor approaches the edge of the screen, scroll the view in that direction
         -- using local coords to move camera relative to its current position.
         -- Since the camera is rotated 90 deg to look down, we move in x and y directions
